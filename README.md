@@ -1,5 +1,7 @@
 # Xunil 🪞💻
 
+> Xunil = Linux reversed
+
 A fun Linux-inspired reverse terminal written in C++.
 
 In this terminal, commands are typed in reverse form.
