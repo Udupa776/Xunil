@@ -34,7 +34,7 @@ void readf(string fname)
 
    if(!file.is_open())
     {
-        cout<<"There is no file in the directory\n";
+        cout<<"\033[31m"<<"There is no file in the directory\n";
     }
     else
     {
@@ -57,6 +57,7 @@ void currworkdir()
 //ls
 void getfiles()
 {
+  cout<<"\033[34m";
   for(const auto & entry :fs::directory_iterator("."))
   {
     cout<<entry<<endl;
@@ -67,21 +68,21 @@ void getfiles()
 void changedir(const char * path )
 {
   if(chdir(path)!=0)
- cout<<"Given path is not found\n";
+ cout<<"\033[31m"<<"Given path is not found\n";
 }
 
 //mkdir
 void makedir(string name)
 {
   if(!filesystem::create_directory(name))
-    cout<<"Failed to create a new directory\n";
+    cout<<"\033[31m"<<"Failed to create a new directory\n";
 }
 
 //rmdir
 void removedir(string name)
 {
   if(!filesystem::remove(name))
-     cout<<"Directory not found \n";
+     cout<<"\033[31m"<<"Directory not found \n";
 }
 
 //touch
@@ -91,17 +92,46 @@ void makefile(string name)
   
   if(!file.is_open())
   {
-    cout<<"Failed to create the file \n";
+    cout<<"\033[31m"<<"Failed to create the file \n";
   }
   file.close();
 }
+
+void cpfile(string file1,string file2)
+{
+  ofstream file(file2);
+  ifstream file11(file1);
+  string s="";string m;
+  if(!file11.is_open())
+  {
+    cout<<"\033[31m"<<"   "<<file1<<" There is no file in the directory\n";
+  }
+  else
+  {
+    while(file11>>m)
+    {
+        s+=m;
+        s+="\n";
+    }
+  }
+
+  if(!file.is_open())
+  {
+    cout<<"\033[31m"<<"Cant create the file please try again";
+  }
+  else
+  {
+    file<<s;
+  }
+}
+
 
 int  main()
 {
     while(1){ 
        currworkdir();
     string s;
-    cout<<"xunil@"<<cwd<<":";
+    cout<<"\033[32m"<<"xunil@user:"<<"\033[33m"<<cwd<<"\033[37m"<<"$  ";
    getline(cin,s);
    stringstream m(s);
    string w;
@@ -192,8 +222,22 @@ int  main()
                                         makefile(tokens[1]);
                                     }
                                     else{
-                                  cout<<"! Command not found !";
+                                      if(tokens[0]=="pc")
+                                      {
+                                        if(tokens.size()!=3)
+                                        {
+                                          cout<<"\033[031m"<<"Invalid syntax for copying \n";
+                                        }
+                                        else
+                                        {
+                                          cpfile(tokens[1],tokens[2]);
+                                        }
+                                      }
+                                      else
+                                      {
+                                  cout<<"\033[31m"<<"! Command not found !\n\033[37m";
                                   uhelp();
+                                      }
                                     }
                                   }
                                 }

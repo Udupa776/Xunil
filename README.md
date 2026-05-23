@@ -69,6 +69,7 @@ Run:
 | `hcuot` | Create file |
 | `tac` | Read file |
 | `raelc` | Clear terminal |
+| `pc` | Copy the content of one file to another |
 | `tixe` | Exit terminal |
 
 ---
